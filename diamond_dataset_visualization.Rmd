@@ -1,0 +1,204 @@
+# 
+
+# Dataset for diamond
+
+sourse: from tidyverse library
+
+```{r}
+# import the necessary library
+library(tidyverse)
+library(ggplot2)
+
+```
+
+# Loading the dataset
+
+```{r}
+data("diamonds")   # diamonds datasets
+print(diamonds)
+```
+
+# Exploring the dataset.
+
+while exploring the dataset, we explore and we start by knowing the following:
+
+-   Data Type of each column
+
+-   Dimension of the dataset (Number of rows and column)
+
+-   Number/percentage of missing values.
+
+-   Descriptive summary(statistics) of the dataset in general.
+
+# Data Type of each column
+
+/
+
+```{r}
+
+str(diamonds)
+```
+
+# Number/percentage of missing values
+
+```{r}
+colSums(is.na(diamonds))
+
+```
+
+#### Descriptive summary (statistics) of the datasets in general
+
+```{r}
+options(digits = 2)
+desc_sum <- summary(diamonds)
+print(desc_sum)
+```
+
+### Transforming the dataset
+
+```{r}
+# basic data cleaning and conversion to integers
+diamonds <- diamonds %>% 
+   mutate(across(c(carat, depth,table, x, y, z), as.numeric)) %>% 
+      filter_all(all_vars(!is.na(.))) # remove rows with any missing value
+```
+
+```{r}
+head(diamonds)
+```
+
+# Exploratory analysis
+
+```{r}
+# counting the numbers of the cut category
+count_cut = diamonds %>% 
+   count(cut)
+print(count_cut)
+```
+
+```{r}
+# counting the numbers of the colour category
+count_color = diamonds %>% 
+   count(color)
+print(count_color)
+```
+
+```{r}
+# counting the numbers of the clearity category
+count_clarity = diamonds %>% 
+   count(clarity)
+print(count_clarity)
+```
+
+#### VISUALIZATION
+
+```{r}
+ggplot(diamonds, aes(x = cut, fill = cut))  +
+   geom_bar() +
+   labs(title = "Distribution of cut categories") +
+   theme_minimal()
+```
+
+```{r}
+ggplot(diamonds, aes(x = clarity, fill = clarity))  +
+   geom_bar() +
+   labs(title = "Distribution of clarity categories") +
+   theme_dark()
+```
+
+```{r}
+ggplot(diamonds, aes(x = color, fill = color))  +
+   geom_bar() +
+   labs(title = "Distribution of color categories") +
+   theme_minimal()
+```
+
+Data Questions to analyze
+
+-   What is the distribution of carat weights in the dataset, and how does it correlate with the price of diamonds?
+
+-   How are the prices distributed among different cut categories?
+
+-   Is there a noticeable trend between the depth percentage and the price of diamonds?
+
+-   Which combination of cut, color, and clarity tends to have the highest average price?
+
+-   Are there any outliers in the dataset, and how do they impact the overall distribution of prices?
+
+#### solution
+
+```{r}
+# scatter plot  of carat vs. price
+ggplot (diamonds, aes(x = carat, y = price, fill = carat)) +
+   geom_point(alpha  = 0.5) +
+   labs(title = "scatter plot of carat vs. price", 
+        x = "carat",
+        y = "price") +
+      theme_minimal()
+```
+
+### interpretation
+
+## This is to say there is a correlation between the carat and the price, i.e the increase in carat is a result to the increase in price.
+
+```{r}
+# boxplot of prices by cut
+ggplot (diamonds, aes(x= cut, y = price, fill = cut)) +
+   geom_boxplot() +
+   labs(title = "boxplot of prices by cut", 
+        x = "cut",
+        y = "price") +
+   theme_minimal()
+```
+
+## Interpretation
+
+#### from the graph above we can say the ideal cut is
+
+```{r}
+#
+ggplot(diamonds, aes(x = depth, y = price,)) +
+   geom_point(alpha  = 0.5) +
+   geom_smooth(method = "lm", se = FALSE, color = "blue") +
+   labs(title = "scatter plot of depth vs. price regression line", 
+        x = "depth",
+        y = "price") +
+      theme_minimal()
+```
+
+## Interpretation
+
+from the graph above this says there is no correlation at all between price and depth
+
+```{r}
+zero <- diamonds %>% 
+   filter(price  > 2000)
+
+zero
+```
+
+```{r}
+ggplot(diamonds, aes(x = table, y = price)) + 
+   geom_point(alpha = 0.5) +
+   labs(title = "relationship betwwen the table and price of the diamonds",
+        x = "table",
+        y = "price") +
+   theme_minimal()
+```
+
+```{r}
+average_prices <- diamonds %>%
+   group_by(cut, color, clarity) %>%
+   summarize(avg_price = mean(price))
+
+top_combinations <- head(arrange(average_prices, desc(avg_price)), 5)
+print(top_combinations)
+```
+
+```{r}
+ggplot(diamonds, aes(y = price)) + 
+   geom_boxplot() +
+   labs(title = "boxplot of prices",
+        y = "price") +
+   theme_minimal()
+```
