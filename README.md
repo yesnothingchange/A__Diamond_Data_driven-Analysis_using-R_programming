@@ -33,3 +33,9 @@ we also looked at analytical Questions for Data Examination:
 5.  **Outlier Detection and Impact on Price Distribution:**
 
     -   Are there any outliers within the dataset, and how do they influence the overall distribution of diamond prices? Understanding the impact of outliers on pricing dynamics is crucial for a comprehensive analysis.
+
+## Data Exploration
+
+## Distribution of cut categories
+
+![cut distribution](cut_data.png){width="728"}
