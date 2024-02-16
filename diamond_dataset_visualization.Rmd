@@ -114,17 +114,24 @@ ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_
 ```
 
 ```{r}
-ggplot(diamonds_df, aes(x = clarity, fill = clarity))  +
+clarity_data <- ggplot(diamonds_df, aes(x = clarity, fill = clarity))  +
+   
    geom_bar() +
    labs(title = "Distribution of clarity categories") +
    theme_dark()
+
+clarity_data
+ggsave('./image_plot/cut_data.png', clarity_data + theme(panel.background = element_rect(fill = 'white')), width = 12, height=7)
 ```
 
 ```{r}
-ggplot(diamonds_df, aes(x = color, fill = color))  +
+color_data <- ggplot(diamonds_df, aes(x = color, fill = color))  +
    geom_bar() +
    labs(title = "Distribution of color categories") +
    theme_minimal()
+color_data
+
+ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_rect(fill = 'white')), width = 12, height=7)
 ```
 
 Data Questions to analyze
