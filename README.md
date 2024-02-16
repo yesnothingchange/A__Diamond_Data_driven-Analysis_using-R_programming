@@ -39,3 +39,7 @@ we also looked at analytical Questions for Data Examination:
 ## Distribution of cut categories
 
 ![cut distribution](cut_data.png){width="728"}
+
+![clarity](clarity_data.png)
+
+![color](color_data.png)
