@@ -43,3 +43,9 @@ we also looked at analytical Questions for Data Examination:
 ![clarity](clarity_data.png)
 
 ![color](color_data.png)
+
+![](plot_data.png)
+
+### interpretation
+
+## This is to say there is a correlation between the carat and the price, i.e the increase in carat is a result to the increase in price.
