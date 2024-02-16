@@ -40,14 +40,22 @@ we also looked at analytical Questions for Data Examination:
 
 ![cut distribution](cut_data.png){width="728"}
 
+## Distribution of clarity categories
+
 ![clarity](clarity_data.png)
 
+## Distribution of color categories
+
 ![color](color_data.png)
+
+## scatter plot of carat vs. price
 
 ![](plot_data.png)
 
 ### interpretation
 
 ## This is to say there is a correlation between the carat and the price, i.e the increase in carat is a result to the increase in price.
+
+## plot of prices by cut
 
 ![](price_diamond.png)
