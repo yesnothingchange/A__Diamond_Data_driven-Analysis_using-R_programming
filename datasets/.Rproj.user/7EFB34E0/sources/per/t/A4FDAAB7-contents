@@ -13,9 +13,9 @@ library(ggplot2)
 
 # Loading the dataset
 
-```{r load_data, message=TRUE}
-diamonds_df = read_csv('./datasets/diamonds.csv') # diamonds datasets 
-print(diamonds_df)
+```{r}
+data("diamonds")   # diamonds datasets
+print(diamonds)
 ```
 
 # Exploring the dataset.
@@ -32,27 +32,17 @@ while exploring the dataset, we explore and we start by knowing the following:
 
 # Data Type of each column
 
+/
+
 ```{r}
 
 str(diamonds)
 ```
 
-```{r}
-# dimension of the datasets
-rc <- dim(diamonds_df)
-cat('Row -', rc[1], '\n')
-cat('column -', rc[2])
-```
-
-```{r}
-#datatype of each variables
-sapply(diamonds_df, class)
-```
-
 # Number/percentage of missing values
 
 ```{r}
-colSums(is.na(diamonds_df))
+colSums(is.na(diamonds))
 
 ```
 
@@ -60,7 +50,7 @@ colSums(is.na(diamonds_df))
 
 ```{r}
 options(digits = 2)
-desc_sum <- summary(diamonds_df)
+desc_sum <- summary(diamonds)
 print(desc_sum)
 ```
 
@@ -68,34 +58,34 @@ print(desc_sum)
 
 ```{r}
 # basic data cleaning and conversion to integers
-diamonds <- diamonds_df %>% 
+diamonds <- diamonds %>% 
    mutate(across(c(carat, depth,table, x, y, z), as.numeric)) %>% 
       filter_all(all_vars(!is.na(.))) # remove rows with any missing value
 ```
 
 ```{r}
-head(diamonds_df)
+head(diamonds)
 ```
 
 # Exploratory analysis
 
 ```{r}
 # counting the numbers of the cut category
-count_cut = diamonds_df %>% 
+count_cut = diamonds %>% 
    count(cut)
 print(count_cut)
 ```
 
 ```{r}
 # counting the numbers of the colour category
-count_color = diamonds_df %>% 
+count_color = diamonds %>% 
    count(color)
 print(count_color)
 ```
 
 ```{r}
 # counting the numbers of the clearity category
-count_clarity = diamonds_df %>% 
+count_clarity = diamonds %>% 
    count(clarity)
 print(count_clarity)
 ```
@@ -103,35 +93,24 @@ print(count_clarity)
 #### VISUALIZATION
 
 ```{r}
-cut_data <- ggplot(diamonds_df, aes(x = cut, fill = cut))  +
+ggplot(diamonds, aes(x = cut, fill = cut))  +
    geom_bar() +
    labs(title = "Distribution of cut categories") +
    theme_minimal()
-
-cut_data
-
-ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_rect(fill = 'white')), width = 12, height=7)
 ```
 
 ```{r}
-clarity_data <- ggplot(diamonds_df, aes(x = clarity, fill = clarity))  +
-   
+ggplot(diamonds, aes(x = clarity, fill = clarity))  +
    geom_bar() +
    labs(title = "Distribution of clarity categories") +
    theme_dark()
-
-clarity_data
-ggsave('./image_plot/cut_data.png', clarity_data + theme(panel.background = element_rect(fill = 'white')), width = 12, height=7)
 ```
 
 ```{r}
-color_data <- ggplot(diamonds_df, aes(x = color, fill = color))  +
+ggplot(diamonds, aes(x = color, fill = color))  +
    geom_bar() +
    labs(title = "Distribution of color categories") +
    theme_minimal()
-color_data
-
-ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_rect(fill = 'white')), width = 12, height=7)
 ```
 
 Data Questions to analyze
@@ -150,14 +129,12 @@ Data Questions to analyze
 
 ```{r}
 # scatter plot  of carat vs. price
-plot_data <- ggplot (diamonds_df, aes(x = carat, y = price, fill = carat)) +
+ggplot (diamonds, aes(x = carat, y = price, fill = carat)) +
    geom_point(alpha  = 0.5) +
    labs(title = "scatter plot of carat vs. price", 
         x = "carat",
         y = "price") +
       theme_minimal()
-plot_data
-ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_rect(fill = 'red')), width = 12, height=7)
 ```
 
 ### interpretation
@@ -166,15 +143,12 @@ ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_
 
 ```{r}
 # boxplot of prices by cut
-price_diamond <- ggplot (diamonds_df, aes(x= cut, y = price, fill = cut)) +
+ggplot (diamonds, aes(x= cut, y = price, fill = cut)) +
    geom_boxplot() +
    labs(title = "boxplot of prices by cut", 
         x = "cut",
         y = "price") +
    theme_minimal()
-price_diamond
-
-ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_rect(fill = 'green')), width = 12, height=7)
 ```
 
 ## Interpretation
@@ -183,7 +157,7 @@ ggsave('./image_plot/cut_data.png', cut_data + theme(panel.background = element_
 
 ```{r}
 #
-ggplot(diamonds_df, aes(x = depth, y = price,)) +
+ggplot(diamonds, aes(x = depth, y = price,)) +
    geom_point(alpha  = 0.5) +
    geom_smooth(method = "lm", se = FALSE, color = "blue") +
    labs(title = "scatter plot of depth vs. price regression line", 
@@ -197,14 +171,14 @@ ggplot(diamonds_df, aes(x = depth, y = price,)) +
 from the graph above this says there is no correlation at all between price and depth
 
 ```{r}
-zero <- diamonds_df %>% 
+zero <- diamonds %>% 
    filter(price  > 2000)
 
 zero
 ```
 
 ```{r}
-ggplot(diamonds_df, aes(x = table, y = price)) + 
+ggplot(diamonds, aes(x = table, y = price)) + 
    geom_point(alpha = 0.5) +
    labs(title = "relationship betwwen the table and price of the diamonds",
         x = "table",
@@ -213,7 +187,7 @@ ggplot(diamonds_df, aes(x = table, y = price)) +
 ```
 
 ```{r}
-average_prices <- diamonds_df %>%
+average_prices <- diamonds %>%
    group_by(cut, color, clarity) %>%
    summarize(avg_price = mean(price))
 
@@ -222,7 +196,7 @@ print(top_combinations)
 ```
 
 ```{r}
-ggplot(diamonds_df, aes(y = price)) + 
+ggplot(diamonds, aes(y = price)) + 
    geom_boxplot() +
    labs(title = "boxplot of prices",
         y = "price") +
