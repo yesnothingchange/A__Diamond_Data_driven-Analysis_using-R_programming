@@ -1,0 +1,43 @@
+# Machine Learning Model Building
+
+#### Agenda
+
+1.  Loading Necessary Liraries
+2.  Load the datasets
+3.  selectin of relevant variables for abstraction and Generalization.
+4.  Feature Engeneering (for accurate modeling).
+5.  Datasets spliting (traininng and testing)
+6.  Modeling Building(with Linear Regression, Random forest and Decision Tree algorithms)
+
+```{r}
+# load necessary libraries
+library(tidyverse)
+library(caret)
+library(randomForest)
+library(corrplot)
+
+```
+
+```{r}
+diamonds_df <- read_csv ("dataset/diamonds.csv")
+```
+
+```{r}
+
+diamonds_df[, c("carat", "cut",  "color", "clarity", "depth", "table", "price")]
+
+```
+
+## Correlation Matrix
+
+```{r}
+correlation_matrix <- cor(
+   diamonds_df[, c("carat",  "depth", "table", "price" )]
+)
+```
+
+```{r}
+print("Correlation Matrix:")
+print(correlation_matrix)
+
+```

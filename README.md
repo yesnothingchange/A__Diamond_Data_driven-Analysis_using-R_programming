@@ -56,8 +56,8 @@ ice, i.e the increase in carat is a result to the increase in price.
 
 ### interpretation
 
-## This is to say there is a correlation between the carat and the pr
+## This is to say there is a correlation between the carat and the price of the diamond.
 
 ## plot of prices by cut
 
-![Diamond price](image_plot/price_diamond.png)
+![Diamond Price By Cut](image_plot/price_diamond.png)
