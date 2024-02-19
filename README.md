@@ -34,28 +34,30 @@ we also looked at analytical Questions for Data Examination:
 
     -   Are there any outliers within the dataset, and how do they influence the overall distribution of diamond prices? Understanding the impact of outliers on pricing dynamics is crucial for a comprehensive analysis.
 
-## Data Exploration
-
 ## Distribution of cut categories
 
-![cut distribution](cut_data.png){width="728"}
+![Cut Categories](image_plot/cut_data.png)
 
 ## Distribution of clarity categories
 
-![clarity](clarity_data.png)
+![clarity](image_plot/clarity_data.png)
 
 ## Distribution of color categories
 
-![color](color_data.png)
+## Data Exploration
+
+ice, i.e the increase in carat is a result to the increase in price.
+
+![color](image_plot/color_data.png)
 
 ## scatter plot of carat vs. price
 
-![](plot_data.png)
+![Relationship between carat and price](image_plot/plot_data.png)
 
 ### interpretation
 
-## This is to say there is a correlation between the carat and the price, i.e the increase in carat is a result to the increase in price.
+## This is to say there is a correlation between the carat and the pr
 
 ## plot of prices by cut
 
-![](price_diamond.png)
+![Diamond price](image_plot/price_diamond.png)
