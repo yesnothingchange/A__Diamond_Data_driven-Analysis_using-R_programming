@@ -32,12 +32,59 @@ diamonds_df[, c("carat", "cut",  "color", "clarity", "depth", "table", "price")]
 
 ```{r}
 correlation_matrix <- cor(
-   diamonds_df[, c("carat",  "depth", "table", "price" )]
+   diamonds_df[, c("carat",  "depth", "x", "y", "z","table", "price" )]
 )
 ```
 
 ```{r}
 print("Correlation Matrix:")
 print(correlation_matrix)
+
+```
+
+```{r}
+corrplot (correlation_matrix, method = "color", addCoef.col = "black")
+```
+
+```{r}
+diamonds_selected <- diamonds_df [, c("carat", "cut", "color", "clarity", "x", "y", "z", "price")]
+
+diamonds_selected
+```
+
+# splitting the datasets into training and testing
+
+```{r}
+set.seed(62)
+train_index <- createDataPartition(diamonds_selected$price, p = 0.7, list = FALSE,)
+train_data <- diamonds_selected[train_index, ]
+test_data <- diamonds_selected[- train_index, ]
+```
+
+```{r}
+test_data
+```
+
+## Model Building  Using the linear Regression Algorithm
+
+Linear regression is a statistical method used to model the relationship between a dependant variable (target) and one or more independent variables (features) by fitting a linear equation to observed data. it asumes that the relationship between the variables is approximately linear.
+
+```{r}
+# Linear Regression
+linear_model <- lm(price ~ ., data = train_data)
+```
+
+```{r}
+
+
+# Evaluate Linear Regression model
+linear_predictions_train <- predict(linear_model, newdata = train_data)
+linear_mse_train <- mean((train_data$price - linear_predictions_train)^2)
+cat("\nLinear Regression - Mean Squared Error (Train):", linear_mse_train, "\n")
+
+linear_predictions_test <- predict(linear_model, newdata = test_data)
+linear_mse_test <- mean((test_data$price - linear_predictions_test)^2)
+cat("Linear Regression - Mean Squared Error (Test):", linear_mse_test, "\n")
+
 
 ```
